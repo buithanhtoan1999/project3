@@ -1,0 +1,19 @@
+.newarrival {
+  border: 1px solid #ccc;
+}
+.newarrival:hover {
+  border: 1px solid #777;
+}
+.link_item {
+  text-decoration: none;
+  color: black;
+}
+.link_item:hover {
+  color: coral;
+}
+.btn_view {
+  background-color: #4caf50;
+}
+.btn_view:hover {
+  color: red;
+}

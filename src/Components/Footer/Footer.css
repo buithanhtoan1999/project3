@@ -1,0 +1,38 @@
+.footer_list {
+  list-style-type: none;
+  padding-left: 0px;
+}
+.footer_list li {
+  padding: 5px;
+}
+.footer_list li:hover {
+  color: coral;
+}
+.footer_tvbh {
+  position: absolute;
+}
+.list_icon li {
+  float: left;
+  list-style-type: none;
+  padding: 4px;
+}
+.list_icon li :hover {
+  color: coral;
+}
+.list_icon_ul {
+  padding: 0px;
+}
+.copyright {
+  border-top: 2px solid #f7f5f4;
+  text-align: center;
+  padding-top: 20px;
+  margin-top: 50px;
+}
+.footer {
+  border-top: 2px solid #f7f5f4;
+  padding-top: 40px;
+  margin-top: 40px;
+}
+.footer_h3 {
+  border: none;
+}
