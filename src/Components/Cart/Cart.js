@@ -38,8 +38,7 @@ export default function Cart() {
   const getTotal = () => {
     let total = 0;
     cart.forEach((element) => {
-      total +=
-        parseInt(element.product.product.price.slice(0, 3)) * element.quantity;
+      total += parseInt(element.product.price.slice(0, 3)) * element.quantity;
     });
     return total;
   };
@@ -57,7 +56,7 @@ export default function Cart() {
             <ul className="list_product">
               {cart.map((product) => (
                 <ItemCart
-                  product={product}
+                  cartItem={product}
                   handleremoveCart={handleremoveCart}
                   handleChangeQuantity={handleChangeQuantity}
                 />
@@ -82,13 +81,10 @@ export default function Cart() {
                 </button>
 
                 <Link to="/" className="link_back_to_home">
-                  Tiếp tục mua hàng
-                  <br></br>
+                  <p style={{ alignSelf: "center", textAlign: "center" }}>
+                    Tiếp tục mua hàng
+                  </p>
                 </Link>
-
-                <ArrowBackIcon className="back_icon"></ArrowBackIcon>
-
-                <br></br>
               </Container>
             </div>
           </Grid>
@@ -97,12 +93,12 @@ export default function Cart() {
     </Container>
   );
 }
-const ItemCart = ({ product, handleremoveCart, handleChangeQuantity }) => {
-  const [count, setCount] = useState(product.quantity);
+const ItemCart = ({ cartItem, handleremoveCart, handleChangeQuantity }) => {
+  const [count, setCount] = useState(cartItem.quantity);
   return (
     <li className="item_productCart">
       <Button
-        onClick={() => handleremoveCart(product)}
+        onClick={() => handleremoveCart(cartItem)}
         style={{ float: "right" }}
       >
         <ClearIcon />
@@ -112,14 +108,15 @@ const ItemCart = ({ product, handleremoveCart, handleChangeQuantity }) => {
           <img width="100" height="100" src={aogio}></img>
         </Grid>
         <Grid item xs={9}>
-          <p className="name">{product.product.product.name}</p>
-          <p className="price">{product.product.product.price}</p>
+          <p className="name">{cartItem.product.name}</p>
+          <p className="price">{cartItem.product.price}</p>
           <ButtonGroup>
             <Button
               onClick={() => {
                 if (count > 1) {
+                  handleChangeQuantity(cartItem.product.id, count - 1);
+
                   setCount(count - 1);
-                  handleChangeQuantity(product.product.product.id, count);
                 }
               }}
               aria-label="increase"
@@ -131,8 +128,8 @@ const ItemCart = ({ product, handleremoveCart, handleChangeQuantity }) => {
             </Typography>
             <Button
               onClick={() => {
+                handleChangeQuantity(cartItem.product.id, count + 1);
                 setCount(count + 1);
-                handleChangeQuantity(product.product.product.id, count);
               }}
               aria-label="increase"
             >

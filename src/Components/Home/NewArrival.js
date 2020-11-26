@@ -72,9 +72,9 @@ export default function NewArrival(props) {
             <div className="newarrival">
               <img style={{ width: "100%" }} src={aogio} />
               <Link to="/product" className="link_item">
-                {product.product.name}
+                {product.name}
               </Link>
-              <p>{product.product.price}</p>
+              <p>{product.price}</p>
               <Grid container style={{ padding: 10 }} spacing={0}>
                 <Grid item xs={6}>
                   <Button
