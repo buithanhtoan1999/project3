@@ -142,14 +142,8 @@ export default function Header() {
   );
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        width: "100%",
-      }}
-    >
-      <AppBar position="static">
+    <div>
+      <AppBar position="fixed">
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
             TOAN_PUI

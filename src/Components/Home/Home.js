@@ -13,17 +13,9 @@ const Home = () => {
   console.log(add);
   return (
     <div>
-      <Header className="header" />
-      <div>
-        <Slideshow></Slideshow>
-      </div>
-      <div>
-        <NewArrival />
-      </div>
-      <div>
-        <Sale></Sale>
-      </div>
-      <Footer></Footer>
+      <Slideshow />
+      <NewArrival />
+      <Sale />
     </div>
   );
 };
