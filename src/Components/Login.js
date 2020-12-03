@@ -15,6 +15,8 @@ import Container from "@material-ui/core/Container";
 import { useFormik, ErrorMessage } from "formik";
 import { Redirect } from "react-router-dom";
 import * as Yup from "yup";
+import { useRecoilState } from "recoil";
+import { loginState } from "./Home/Atoms/NewArrivalState";
 
 function Copyright() {
   return (
@@ -51,7 +53,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(false);
-
+  const [login, setLogin] = useRecoilState(loginState);
+  console.log(login + " lll " + isLogin);
   const loginSchema = Yup.object().shape({
     email: Yup.string()
       .min(2, "Qua Ngan !")
@@ -73,10 +76,7 @@ export default function Login() {
         values.password === "123456"
       ) {
         setIsLogin(true);
-      } else if (
-        values.email === "guest@gmail.com" &&
-        values.password === "guest"
-      ) {
+        setLogin(true);
       }
     },
   });
@@ -84,7 +84,7 @@ export default function Login() {
   const classes = useStyles();
 
   return isLogin ? (
-    <Redirect to="/dashboard" />
+    <Redirect to="/" />
   ) : (
     <Container component="main" maxWidth="xs">
       <CssBaseline />

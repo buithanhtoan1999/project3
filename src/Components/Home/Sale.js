@@ -57,11 +57,11 @@ const useStyles = makeStyles((theme) => ({
 export default function Sale() {
   const classes = useStyles();
   return (
-    <Container>
+    <Container style={{ marginTop: "50px" }}>
       <h1
         style={{
           textAlign: "center",
-          paddingBottom: "20px",
+          paddingBottom: "30px",
           paddingTop: "20px",
         }}
       >

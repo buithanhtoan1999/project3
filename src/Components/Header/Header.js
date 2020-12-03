@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -17,7 +17,8 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Dropdown from "react-multilevel-dropdown";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { cartState } from "../Home/Atoms/NewArrivalState";
+import { cartState, loginState } from "../Home/Atoms/NewArrivalState";
+import { Tooltip } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -96,9 +97,8 @@ export default function Header() {
   const [count, setCount] = React.useState(0);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const [login, setLogin] = useRecoilState(loginState);
   const cart = useRecoilValue(cartState);
-
   const history = useHistory();
   const isMenuOpen = Boolean(anchorEl);
   const handleProfileMenuOpen = (event) => {
@@ -125,8 +125,11 @@ export default function Header() {
   const handleViewCart = () => {
     history.push("/cart");
   };
+  const handleClickCollection = () => {
+    history.push("/album");
+  };
   const menuId = "primary-search-account-menu";
-  const renderMenu = (
+  const renderMenu = !login ? (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -139,14 +142,32 @@ export default function Header() {
       <MenuItem onClick={() => handleMenuItemSignUp()}>Sign Up </MenuItem>
       <MenuItem onClick={() => handleMenuItemSignIn()}>Sign In </MenuItem>
     </Menu>
+  ) : (
+    <div>
+      <h1>THÔNG TIN TÀI KHOẢN</h1>
+    </div>
   );
 
   return (
-    <div>
+    <div
+      style={{
+        paddingBottom: "100px",
+      }}
+    >
       <AppBar position="fixed">
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
-            TOAN_PUI
+            <Link
+              to="/"
+              style={{
+                textDecoration: "none",
+                color: "coral",
+                fontFamily: "Quicksand",
+                fontSize: "58px",
+              }}
+            >
+              BTT
+            </Link>
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -167,7 +188,7 @@ export default function Header() {
               <ul navbar navbar-expand-lg navbar-dark default-color>
                 <li className={classes.inline}>
                   <Dropdown
-                    title="SẢN PHẨM"
+                    title={<h3>SẢN PHẨM</h3>}
                     buttonClassName={classes.dropdownButton}
                     position="right"
                   >
@@ -177,10 +198,38 @@ export default function Header() {
                     <Dropdown.Item className={classes.dropdown}>
                       ÁO
                       <Dropdown.Submenu position="right">
-                        <Dropdown.Item>ÁO SƠ MI</Dropdown.Item>
-                        <Dropdown.Item>ÁO POLO</Dropdown.Item>
-                        <Dropdown.Item>ÁO THUN</Dropdown.Item>
-                        <Dropdown.Item>ÁO VEST</Dropdown.Item>
+                        <Dropdown.Item>
+                          <Link
+                            to="/album/aobo"
+                            style={{ textDecoration: "none" }}
+                          >
+                            ÁO BÒ
+                          </Link>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                          <Link
+                            to="/album/aopolo"
+                            style={{ textDecoration: "none" }}
+                          >
+                            ÁO POLO
+                          </Link>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                          <Link
+                            to="/album/aothun"
+                            style={{ textDecoration: "none" }}
+                          >
+                            ÁO THUN
+                          </Link>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                          <Link
+                            to="/album/aovest"
+                            style={{ textDecoration: "none" }}
+                          >
+                            ÁO VEST
+                          </Link>
+                        </Dropdown.Item>
                       </Dropdown.Submenu>
                     </Dropdown.Item>
                     <Dropdown.Item className={classes.dropdown}>
@@ -199,7 +248,7 @@ export default function Header() {
                 </li>
                 <li className={classes.inline}>
                   <Dropdown
-                    title="SP MÙA ĐÔNG"
+                    title={<h3>SP MÙA ĐÔNG</h3>}
                     buttonClassName={classes.dropdownButton}
                     position="right"
                   >
@@ -222,14 +271,21 @@ export default function Header() {
                 </li>
                 <li className={classes.inline}>
                   <Dropdown
-                    title="SALE UP TO 50%"
+                    title={<h3>SALE UP TO 50%</h3>}
                     buttonClassName={classes.dropdownButton}
                     position="right"
-                  ></Dropdown>
+                  >
+                    <Dropdown.Item className={classes.dropdown}>
+                      BLACK FRIDAY
+                    </Dropdown.Item>
+                    <Dropdown.Item className={classes.dropdown}>
+                      NEW ARRIVAL
+                    </Dropdown.Item>
+                  </Dropdown>
                 </li>
                 <li className={classes.inline}>
                   <Dropdown
-                    title="H.DẪN-C.SÁCH"
+                    title={<h3>H.DẪN-C.SÁCH</h3>}
                     buttonClassName={classes.dropdownButton}
                     position="right"
                   >
@@ -256,25 +312,28 @@ export default function Header() {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <IconButton
-              onClick={handleViewCart}
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={cart.length} color="secondary">
-                <ShoppingCartIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+            <Tooltip title="Giỏ hàng">
+              <IconButton
+                onClick={handleViewCart}
+                aria-label="show 4 new mails"
+                color="inherit"
+              >
+                <Badge badgeContent={cart.length} color="secondary">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Tài khoản">
+              <IconButton
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+              >
+                <AccountCircle />
+              </IconButton>
+            </Tooltip>
           </div>
         </Toolbar>
       </AppBar>

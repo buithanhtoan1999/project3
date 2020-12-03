@@ -20,7 +20,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 import RemoveIcon from "@material-ui/icons/Remove";
 import AddIcon from "@material-ui/icons/Add";
 import { Link, useHistory } from "react-router-dom";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+
 export default function Cart() {
   const [cart, setCart] = useRecoilState(cartState);
   const handleremoveCart = (product) => {
@@ -43,12 +43,13 @@ export default function Cart() {
     return total;
   };
 
-  console.log(cart, cart.quantity);
   return (
     <Container>
       <div className="header_cart">
         <h1>Giỏ hàng của bạn</h1>
-        <p>Có {cart.length} sản phẩm trong giỏ hàng </p>
+        <Typography variant="h5">
+          Có {cart.length} sản phẩm trong giỏ hàng{" "}
+        </Typography>
       </div>
       <div>
         <Grid container spacing={1}>

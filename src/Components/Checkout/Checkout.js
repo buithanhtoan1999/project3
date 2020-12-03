@@ -64,7 +64,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ["Shipping address", "Payment details", "Review your order"];
+const steps = [
+  "Địa chỉ giao hàng",
+  "Phương thức thanh toán",
+  "Hóa đơn đặt hàng",
+];
 
 function getStepContent(step) {
   switch (step) {
@@ -94,17 +98,11 @@ export default function Checkout() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            TOAN PUI
-          </Typography>
-        </Toolbar>
-      </AppBar>
+
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
-            Checkout
+            THANH TOÁN & ĐẶT HÀNG
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (

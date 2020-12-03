@@ -3,6 +3,11 @@ export const cartState = atom({
   key: "cart",
   default: [],
 });
+export const loginState = atom({
+  key: "login",
+  default: false,
+});
+
 export const addToCart = (cart, product) => {
   const newCart = [...cart];
   let foundIndex = -1;
